@@ -121,7 +121,8 @@ h1, h2, h3, h4, h5, h6, p {
 
 /* Навігація шапка */
 .site-nav-link:hover, .site-nav-link:focus, .site-nav-link:active {
-    color: var(--accent-color); 
+    color: var(--accent-color);
+    border-bottom: 5px solid var(--accent-color);
 }
 
 .site-nav, .item {
