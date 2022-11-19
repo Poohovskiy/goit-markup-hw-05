@@ -15,6 +15,12 @@
     --contact-link-text-color: #757575;
     --hero-title-color: #FFFFFF;
     --hero-background-color: #2F303A;
+    --backdrop-color: rgba(0, 0, 0, 0.2);
+    --animation-duration: 250ms;
+    --time-distribution-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --close-button-color: rgba(0, 0, 0, 0.1);
+
+
 }
 
 /* Загальні на весь документ */
@@ -33,6 +39,10 @@ ul {
 
 a {
     text-decoration-line: none;
+}
+
+img {
+    display: block;
 }
 
 .section {
@@ -122,7 +132,7 @@ h1, h2, h3, h4, h5, h6, p {
 /* Навігація шапка */
 .site-nav-link:hover, .site-nav-link:focus, .site-nav-link:active {
     color: var(--accent-color);
-    border-bottom: 5px solid var(--accent-color);
+    /* border-bottom: 5px solid var(--accent-color); */
 }
 
 .site-nav, .item {
@@ -144,8 +154,19 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 .current {
-    color: var(--accent-color);
-    border-bottom: 5px solid var(--accent-color);
+    position: relative;
+}
+
+.current::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    display: block;
+    width: 100%;
+    height: 4px;
+    background-color: var(--accent-color);
+    border-radius: 2px;
 }
 
 
@@ -239,6 +260,7 @@ h1, h2, h3, h4, h5, h6, p {
     line-height: 1.36;
     color: var(--hero-title-color);
     letter-spacing: 0.06em;
+
 }
 
 /* Кнопка замовити */
@@ -255,6 +277,72 @@ h1, h2, h3, h4, h5, h6, p {
     text-align: center;
     margin-bottom: 200px;
     border: transparent;
+}
+
+/* Модальне вікно Hero */
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--backdrop-color);
+    opacity: 1;
+    transition: opacity var(--animation-duration) var(--time-distribution-function);
+}
+
+.backdrop.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) scale(0.5);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 528px;
+    height: 581px;
+    background-color: var(--primary-background-color);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12),
+        0px 1px 1px rgba(0, 0, 0, 0.14),
+        0px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+
+    transform: translate(-50%, -50%) scale(1);
+    transition: transform var(--animation-duration) var(--time-distribution-function);
+}
+
+.button-close {
+    position: absolute;
+    display: flex;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    justify-content: center;
+    align-items: center;
+
+    fill: black;
+    border-radius: 50%;
+    background: var(--primary-white-color);
+    border: 1px solid var(--close-button-color);
+    cursor: pointer;
+
+    transition: fill var(--animation-duration) var(--time-distribution-function);
+}
+
+.button-close:hover,
+.button-close:focus {
+    fill: var(--accent-color);
+}
+
+.icon-close {
+    fill: inherit;
 }
 
 /* Наші переваги */
@@ -403,6 +491,23 @@ h1, h2, h3, h4, h5, h6, p {
 
 .what-we-do-image {
 
+}
+
+.what-we-do-box {
+    position: relative;
+}
+
+.label {
+    position: absolute;
+    bottom: 0;
+    padding-top: 27px;
+    padding-bottom: 27px;
+    width: 100%;
+    font-weight: 700;
+    line-height: 1.14;
+    text-align: center;
+    color: var(--hero-title-color);
+    background-color: rgba(47, 48, 58, 0.8);
 }
 
 
@@ -742,7 +847,7 @@ h1, h2, h3, h4, h5, h6, p {
     margin-bottom: 30px;
 }
 
-.portfolio-example:hover {
+.portfolio-example:hover, .portfolio-example:focus {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.12), 0px 4px 4px rgba(0, 0, 0, 0.06), 1px 4px 6px rgba(0, 0, 0, 0.16);
 }
 
@@ -779,5 +884,31 @@ h1, h2, h3, h4, h5, h6, p {
     padding-left: 24px;
     margin-top: 4px;
     padding-bottom: 20px;
+}
+
+.portfolio-example-box {
+    position: relative;
+    overflow: hidden;
+}
+
+.portfolio-box-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 63px 24px;
+        
+    font-size: 18px;
+    line-height: 1.56;
+        
+    color: var(--primary-white-color);
+    background-color: var(--accent-color);
+    transform: translatey(100%);
+    transition: transform var(--animation-duration) var(--time-distribution-function);
+}
+
+.portfolio-box-overlay:hover {
+    transform: translatey(0);
 }
 
